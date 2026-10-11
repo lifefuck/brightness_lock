@@ -1,98 +1,58 @@
-<p align="center">
-  <img src="https://img.shields.io/badge/小米14%20Pro亮度提升-1.2-3482FF?style=for-the-badge&logo=android&logoColor=white" alt="版本"/>
-  <img src="https://img.shields.io/badge/License-MIT-34C759?style=for-the-badge" alt="License"/>
-  <img src="https://img.shields.io/badge/Platform-KSU%20%7C%20APatch%20%7C%20Magisk%20%7C%20Kitsune-F7931E?style=for-the-badge" alt="平台"/>
-</p>
+# 小米14 Pro 亮度锁定 (Brightness Lock)
 
-<p align="center">
-  <a href="https://github.com/lifefuck/brightness-lock/releases/latest">
-    <img src="https://img.shields.io/github/v/release/lifefuck/brightness-lock?style=for-the-badge&label=最新版本&color=3482FF" alt="最新版本"/>
-    <img src="https://img.shields.io/github/downloads/lifefuck/brightness-lock/total?style=for-the-badge&label=下载量&color=34C759" alt="下载量"/>
-  </a>
-</p>
-
-<p align="center">
-  <b>🌞 解决安卓温控降亮度问题 —— 屏幕亮度被系统悄悄压低？瞬时锁定拉回！</b>
-</p>
-
-<p align="center">
-  <a href="README.md">中文</a> · <a href="README_EN.md">English</a>
-</p>
+用于防止 Android / HyperOS 温控策略强行压低屏幕背光。支持 KernelSU、APatch 与 Magisk。
 
 ---
 
-## 📖 简介
+## 解决的问题
 
-在户外阳光下使用手机时，系统（温控/自动亮度策略）常常会把屏幕亮度**悄悄压低**，导致明明已经拉到最大却还是看不清屏幕。
+在户外高照度或机身发热场景下，系统的温控策略常会在后台强制下调屏幕背光，导致手动拉满仍然无法看清屏幕。
 
-**小米14 Pro 亮度提升** 是一个常驻后台的现代化守护模块，基于系统广播与节点事件驱动。一旦发现亮度被系统压低到目标值以下，**瞬时拉回**，告别传统低效死循环轮询，让屏幕始终保持你设定的极速高亮。
-
-> ⚠️ **本模块由 AI 辅助生成**，代码经过多重安全审查与逻辑测试，但使用前请知悉风险（详见 [免责声明](#-免责声明)）。
+本模块通过监听系统广播与 sysfs 节点事件，当检测到当前背光低于设定目标值时，自动将亮度恢复至目标值；息屏时挂起休眠，不占用额外 CPU 与电池功耗。
 
 ---
 
-## ✨ 特性
+## 平台兼容性
 
-- 🛡️ **温控对抗**：内核事件瞬时侦测，亮度被压低毫秒级弹回目标值
-- 💤 **息屏深睡**：屏幕熄灭即彻底挂起休眠，0 占用、0 额外耗电
-- 🎨 **MD3 莫奈界面**：全新 Material You 设计规范，支持莫奈动态取色与圆角卡片质感
-- 🔒 **默认关闭**：安装后不干预系统，需要时在 WebUI 一键开启
-- 🎯 **目标跟随**：首次开启时自动锁定系统当前亮度，也可手动调整（100~4095）
-- 📊 **实时状态**：WebUI 显示当前亮度 / 目标亮度 / 守护就绪状态 / 实时日志
-- 🧹 **卸载干净**：删除模块即完全移除，守护进程自动退出，无残留
-- 🔌 **多平台兼容**：KernelSU / APatch / Magisk / 狐狸面具（Kitsune Mask）
+| 管理器 | 守护功能 | WebUI 控制台 | 说明 |
+| :--- | :---: | :---: | :--- |
+| **KernelSU (KSU)** | 支持 | 支持 | 完整支持 Material 3 控制面板 |
+| **APatch** | 支持 | 支持 | 复用 KSU WebUI 接口 |
+| **Magisk / 狐狸面具** | 支持 | 终端配置文件 | 官方 Magisk 不支持 WebUI，通过命令行/配置文件控制 |
 
 ---
 
-## 🔧 兼容性
+## 机型与节点支持
 
-| 面具 | 守护功能 | WebUI | 说明 |
-|------|:--------:|:-----:|------|
-| **KernelSU (KSU)** | ✅ | ✅ | 完整支持（MD3 莫奈界面） |
-| **APatch** | ✅ | ✅ | 复用 KSU WebUI API |
-| **狐狸面具 (Kitsune Mask)** | ✅ | ❌ | 终端命令控制 |
-| **Magisk 官方** | ✅ | ❌ | 官方不支持 webroot |
-
-> 📌 Magisk / 狐狸面具无 WebUI 是面具本身不支持（topjohnwu 明确不做），非本模块限制。
+- **主要测试机型**：小米 14 Pro (HyperOS)
+- **通用支持**：守护脚本启动时会自动探测 `/sys/class/backlight/*/brightness` 节点，其他高通/联发科机型亦具备通用兼容性。
 
 ---
 
-## 📱 机型说明
+## 安装说明
 
-> ⚠️ 本模块针对**小米 14 Pro 深度定制调优**，节点与温控机制针对 HyperOS 完美适配；其他机型具备通用节点探测，但请自行测试。
+### 前提条件
+- 设备已解锁 Bootloader；
+- 已刷入 KernelSU / APatch / Magisk 之一。
 
-守护进程会自动探测亮度节点（`/sys/class/backlight/*/brightness`），通用性较好。遇到问题欢迎提交 [Issue](https://github.com/lifefuck/brightness-lock/issues)。
-
----
-
-## 📦 安装
-
-### 前置要求
-- 已 root（KSU / APatch / Magisk / 狐狸面具之一）
-- 设备已解锁 bootloader
-
-### 步骤
-1. **下载模块**：到 [Releases 页](https://github.com/lifefuck/brightness-lock/releases) 下载最新版 Zip
-2. 打开面具管理器 → **模块** → **从本地安装** → 选择 zip
-3. 安装器会**自动检测面具环境**：
-   - ✅ 兼容 → 继续
-   - ❌ 不兼容（无面具）→ 自动终止安装
-4. 按键确认：
-   - **[音量+] = 确认安装**
-   - **[音量-] = 取消安装**
-   - 15 秒无操作自动取消
-5. 重启手机
+### 刷入步骤
+1. 前往 [Releases 页面](https://github.com/lifefuck/brightness-lock/releases) 下载最新模块 Zip 包；
+2. 打开 Root 管理器 ➔ 模块 ➔ 本地安装 ➔ 选择 Zip；
+3. 音量键确认安装：**[音量+]** 确认，**[音量-]** 取消；
+4. 重启设备。
 
 ---
 
-## 🎛️ 使用方法
+## 使用方式
 
-### KSU / APatch（WebUI）
-1. 打开面具管理器 → 模块 → **小米14 Pro 亮度提升**
-2. 点击 **UI / 网页图标** 打开 MD3 莫奈控制面板
-3. 打开 **保持高亮锁定** 开关即可
+### 1. KSU / APatch（WebUI 控制台）
+1. 打开 Root 管理器 ➔ 模块 ➔ 点击本模块的 **WebUI 图标**；
+2. 开启 **保持高亮锁定** 开关；
+3. 支持在面板中实时调节目标亮度（100 ~ 4095）并查看实时运行日志。
 
-### Magisk / 狐狸面具（终端）
+### 2. Magisk / 终端控制
+配置文件路径：`/data/adb/modules/brightness_lock/config`
+
 ```bash
 # 开启锁定
 echo enabled=1 > /data/adb/modules/brightness_lock/config
@@ -100,68 +60,29 @@ echo enabled=1 > /data/adb/modules/brightness_lock/config
 # 关闭锁定
 echo enabled=0 > /data/adb/modules/brightness_lock/config
 
-# 查看状态
+# 查看当前配置
 cat /data/adb/modules/brightness_lock/config
 ```
 
 ---
 
-## ⚙️ 配置说明
+## 配置参数
 
-配置文件位于 `/data/adb/modules/brightness_lock/config`：
-
-| 参数 | 默认值 | 说明 |
-|------|--------|------|
+| 参数名 | 默认值 | 说明 |
+| :--- | :--- | :--- |
 | `enabled` | `0` | 锁定开关（0=关闭，1=开启） |
-| `target` | 系统当前亮度 | 目标亮度值（100~4095） |
-| `interval` | `1` | 守护机制灵敏度模式（1=瞬时拉回，2=极速加固，5=节能） |
+| `target` | 系统当前亮度 | 目标锁定亮度（取值范围 100~4095） |
+| `interval` | `1` | 守护灵敏度（1=实时侦测，2=普通，5=低频节能） |
 
 ---
 
-## 🗑️ 卸载
+## 卸载
 
-1. 面具管理器 → 模块 → **小米14 Pro 亮度提升** → **卸载**
-2. 守护进程会检测到模块被删除，**自动退出**，不留任何残留
-
-> 模块不修改系统分区，卸载后即完全干净。
+在 Root 管理器中直接点击卸载模块并重启。守护脚本检测到模块目录被删除后会自动终止，不修改系统分区。
 
 ---
 
-## ⚠️ 临时 Root 说明
+## 许可证与署名
 
-- 本模块**不修改系统分区**（只写 `/data/adb` 与 `/sys` 节点）
-- **临时 Root（重启失效）可以安装**，但重启后无 Root 环境不会自动生效
-- 需要重新获取 Root 后手动启动守护，或改用持久 Root（KSU / Magisk / APatch）
-
----
-
-## ❓ 常见问题
-
-**Q: 开启后屏幕一直 4095，会不会烧屏？**
-A: OLED 长时间最高亮度确实有老化风险，建议户外使用、室内关闭（WebUI 一键切换）。
-
-**Q: 为什么 Magisk 上没有 WebUI？**
-A: Magisk 官方不支持模块 WebUI 功能，这是面具的限制，请用终端命令控制。
-
-**Q: 模块删了亮度还会被改吗？**
-A: 不会。守护进程检测到模块被删除会立即自杀退出。
-
----
-
-## 📜 免责声明
-
-- 本模块为 **AI 辅助生成**，虽经代码审查与逻辑测试，但仍可能存在未知问题
-- 使用本模块导致的一切后果（包括但不限于屏幕老化、系统异常）**由使用者自行承担**
-- 请自行决定是否使用，**使用即视为同意以上条款**
-
----
-
-## 📄 License
-
-[MIT](LICENSE) © life
-
----
-
-<p align="center">
-  <sub>Made with ❤️ and 🤖 · life</sub>
-</p>
+- **作者**：life
+- **许可证**：[MIT](LICENSE)
