@@ -3,5 +3,5 @@ name=小米14 Pro亮度提升
 version=1.2.1
 versionCode=9
 author=life
-description=解决温控降亮度：事件驱动实时守护屏幕亮度，息屏深度休眠零耗电，被压低时瞬时拉回目标值。默认关闭，KSU/APatch WebUI 开关控制，兼容 Magisk/狐狸面具，卸载干净无残留。
+description=防温控降亮度：发热被压暗时自动拉回设定值，息屏不耗电。支持 WebUI 调亮度和开关，默认关闭。
 webui=true

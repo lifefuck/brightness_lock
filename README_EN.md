@@ -36,7 +36,7 @@ This module listens to broadcast events and sysfs backlight nodes. Whenever brig
 - Rooted with KernelSU, APatch, or Magisk.
 
 ### Steps
-1. Download the latest module zip from [Releases](https://github.com/lifefuck/brightness-lock/releases);
+1. Download the latest module zip from [Releases](https://github.com/lifefuck/brightness_lock/releases);
 2. Root Manager ➔ Modules ➔ Install from storage ➔ select zip;
 3. Confirm with volume keys: **[Volume+]** to install, **[Volume-]** to cancel;
 4. Reboot device.

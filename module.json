@@ -1,7 +1,7 @@
 {
     "metamodule": false,
-    "summary": "小米14 Pro亮度提升 - 对抗温控降亮度，屏幕被压低瞬时拉回目标值。Xiaomi 14 Pro Brightness Boost - fight thermal throttling, instant auto-restore dimmed brightness. 默认关闭，KSU/APatch WebUI 控制，兼容 Magisk/狐狸面具。",
-    "sourceUrl": "https://github.com/lifefuck/brightness-lock",
+    "summary": "小米14 Pro 屏幕亮度锁定：防温控发热降背光，息屏不耗电。支持 KSU/APatch WebUI 调亮度和开关，默认关闭。",
+    "sourceUrl": "https://github.com/lifefuck/brightness_lock",
     "additionalAuthors": [
         {
             "type": "remove",
