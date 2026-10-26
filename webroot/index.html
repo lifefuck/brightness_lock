@@ -544,7 +544,7 @@ input[type="range"]::-webkit-slider-thumb:active {
 <div class="settings-card">
     <div class="card-header">
         <div class="card-title">
-            <span data-i18n="settings">⚙️ 策略与参数配置</span>
+            <span data-i18n="settings">策略与参数配置</span>
         </div>
     </div>
 
@@ -572,15 +572,15 @@ input[type="range"]::-webkit-slider-thumb:active {
         </div>
         <div class="mode-chips">
             <div class="md3-chip active" id="chipEvent" onclick="setMode('event')">
-                <div class="md3-chip-title" data-i18n="modeInstant">⚡ 瞬时拉回</div>
+                <div class="md3-chip-title" data-i18n="modeInstant">瞬时拉回</div>
                 <div class="md3-chip-sub" data-i18n="modeInstantSub">事件驱动·压低秒弹</div>
             </div>
             <div class="md3-chip" id="chipStrict" onclick="setMode('strict')">
-                <div class="md3-chip-title" data-i18n="modeStrict">🛡️ 极速加固</div>
+                <div class="md3-chip-title" data-i18n="modeStrict">极速加固</div>
                 <div class="md3-chip-sub" data-i18n="modeStrictSub">高频巡检·杜绝降频</div>
             </div>
             <div class="md3-chip" id="chipEco" onclick="setMode('eco')">
-                <div class="md3-chip-title" data-i18n="modeEco">🍃 均衡节能</div>
+                <div class="md3-chip-title" data-i18n="modeEco">均衡节能</div>
                 <div class="md3-chip-sub" data-i18n="modeEcoSub">息屏休眠·低功耗</div>
             </div>
         </div>
@@ -591,7 +591,7 @@ input[type="range"]::-webkit-slider-thumb:active {
 <div class="log-card">
     <div class="card-header">
         <div class="card-title">
-            <span data-i18n="logTitle">📋 运行日志</span>
+            <span data-i18n="logTitle">运行日志</span>
         </div>
         <button class="md-button-tonal" onclick="refreshLog()" data-i18n="refresh">刷新</button>
     </div>
@@ -622,18 +622,18 @@ const I18N = {
         maxSuffix: '最大',
         targetBrightness: '锁定目标亮度',
         targetSub: '压低瞬间拉回基准值',
-        settings: '⚙️ 策略与参数配置',
+        settings: '策略与参数配置',
         targetLabel: '目标亮度阈值',
         targetDesc: '被系统压制后拉回的绝对亮度',
         modeLabel: '守护拉回机制',
         modeDesc: '基于内核节点事件与毫秒级即时对抗',
-        modeInstant: '⚡ 瞬时拉回',
+        modeInstant: '瞬时拉回',
         modeInstantSub: '事件驱动·压低秒弹',
-        modeStrict: '🛡️ 极速加固',
+        modeStrict: '极速加固',
         modeStrictSub: '高频巡检·杜绝降频',
-        modeEco: '🍃 均衡节能',
+        modeEco: '均衡节能',
         modeEcoSub: '息屏休眠·低功耗',
-        logTitle: '📋 运行日志',
+        logTitle: '运行日志',
         refresh: '刷新',
         logLoading: '正在连接守护进程…',
         noLog: '（守护就绪，暂无触发记录）',
@@ -652,18 +652,18 @@ const I18N = {
         maxSuffix: 'Max',
         targetBrightness: 'Target Brightness',
         targetSub: 'Threshold to restore',
-        settings: '⚙️ Policies & Settings',
+        settings: 'Policies & Settings',
         targetLabel: 'Target Brightness Value',
         targetDesc: 'Value restored when screen is dimmed',
         modeLabel: 'Enforcement Mechanism',
         modeDesc: 'Driven by kernel node events with zero lag',
-        modeInstant: '⚡ Instant Restorer',
+        modeInstant: 'Instant Restorer',
         modeInstantSub: 'Event-driven · 0 delay',
-        modeStrict: '🛡️ Strict Lock',
+        modeStrict: 'Strict Lock',
         modeStrictSub: 'High frequency safeguard',
-        modeEco: '🍃 Balanced Eco',
+        modeEco: 'Balanced Eco',
         modeEcoSub: 'Deep sleep on screen off',
-        logTitle: '📋 Daemon Activity Logs',
+        logTitle: 'Daemon Activity Logs',
         refresh: 'Refresh',
         logLoading: 'Connecting to daemon…',
         noLog: '(Daemon is ready, no throttle events yet)',

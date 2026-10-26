@@ -37,7 +37,7 @@ This module listens to broadcast events and sysfs backlight nodes. Whenever brig
 
 ### Steps
 1. Download the latest module zip from [Releases](https://github.com/lifefuck/brightness_lock/releases);
-2. Root Manager ➔ Modules ➔ Install from storage ➔ select zip;
+2. Root Manager Modules Install from storage select zip;
 3. Confirm with volume keys: **[Volume+]** to install, **[Volume-]** to cancel;
 4. Reboot device.
 
@@ -46,7 +46,7 @@ This module listens to broadcast events and sysfs backlight nodes. Whenever brig
 ## Usage
 
 ### 1. KSU / APatch (WebUI)
-1. Open Root Manager ➔ Modules ➔ tap the **WebUI** icon on this module;
+1. Open Root Manager Modules tap the **WebUI** icon on this module;
 2. Turn on the **Keep Brightness Locked** toggle;
 3. Adjust target brightness (100 ~ 4095) and view live logs.
 
