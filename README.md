@@ -1,44 +1,37 @@
 # 小米14 Pro 亮度锁定 (Brightness Lock)
 
-解决小米 14 Pro（HyperOS）在玩游戏、机身发热或户外强光下，温控强制把屏幕亮度暗调降级的问题。
+解决小米 14 Pro 在澎湃 HyperOS 下玩游戏、发热或户外强光时，温控强行把屏幕亮度压暗的问题。
 
----
+## 原理
 
-## 怎么工作的
-- 后台监听屏幕背光节点，一旦被温控压暗，自动拉回设定的亮度值。
-- 息屏自动彻底休眠，不吃 CPU，不耗电。
-- 亮屏立刻恢复锁定。
-- 默认是关闭的，不会开机盲闪，需要时在 WebUI 里点开就行。
+后台监控背光节点，一旦被系统温控压暗，就自动改回设定的亮度数值。
+息屏时自动休眠，不占 CPU 也不耗电，亮屏恢复锁定。模块默认是关闭的，不会开机强制锁定，需要时在 WebUI 里开启即可。
 
----
+## 兼容性与控制方式
 
-## 控制与兼容
-
-| 管理器 | 锁定功能 | WebUI 界面 | 控制方式 |
+| 环境 | 锁定功能 | WebUI 控制 | 使用方式 |
 | :--- | :---: | :---: | :--- |
-| **KernelSU (KSU)** | 支持 | 支持 | 模块页面直接点图标打开网页调节 |
-| **APatch** | 支持 | 支持 | 复用 WebUI 网页调节 |
-| **Magisk / 狐狸面具** | 支持 | 无 | 改配置文件 `/data/adb/modules/brightness_lock/config` |
+| KernelSU | 支持 | 支持 | 模块页面直接点图标打开 WebUI 调节 |
+| APatch | 支持 | 支持 | 模块页面进入 WebUI 调节 |
+| Magisk | 支持 | 无 | 修改配置文件 `/data/adb/modules/brightness_lock/config` |
 
----
+## 安装
 
-## 安装说明
-1. 到 [Releases 页面](https://github.com/lifefuck/brightness_lock/releases) 下载最新的模块 zip。
-2. 打开 KSU / APatch / Magisk 刷入。
-3. 按音量上键确认，刷完重启一次手机。
+1. 在 Releases 下载最新的模块 zip。
+2. 打开 KSU / APatch / Magisk 本地刷入。
+3. 按音量键确认，重启手机。
 
----
+## 使用
 
-## 使用方法
-
-### KSU / APatch
-在模块列表里点进本模块的 WebUI：
-- 打开「锁定开关」；
-- 拖动滑块或输入数值（100 ~ 4095）设定目标亮度；
-- 下面可以直接看运行日志。
+### KernelSU / APatch
+直接在模块列表点开 WebUI：
+- 打开锁定开关。
+- 滑动或手动输入亮度数值（100 ~ 4095）。
+- 底部可以查看实时日志。
 
 ### Magisk / 终端控制
-配置文件路径：`/data/adb/modules/brightness_lock/config`
+修改配置文件 `/data/adb/modules/brightness_lock/config`：
+
 ```bash
 # 开启锁定
 echo enabled=1 > /data/adb/modules/brightness_lock/config
@@ -46,17 +39,14 @@ echo enabled=1 > /data/adb/modules/brightness_lock/config
 # 关闭锁定
 echo enabled=0 > /data/adb/modules/brightness_lock/config
 
-# 改目标亮度为 3000
+# 修改目标亮度为 3000
 echo target=3000 >> /data/adb/modules/brightness_lock/config
 ```
 
----
-
 ## 卸载
-管理器里直接点卸载并重启。后台脚本检测到模块删除后会自动退出自愈，不改动任何系统分区。
 
----
+在管理器中直接卸载模块并重启手机即可。不修改任何系统分区，不留后台残留。
 
-## 署名
-- 作者: life
-- 许可证: [MIT](LICENSE)
+## 作者
+
+- life
